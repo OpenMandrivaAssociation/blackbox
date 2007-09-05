@@ -1,21 +1,25 @@
+%define major 0
+%define libname %mklibname bt %major
+# fwang: we don't use libbt-devel because it is already occupied by libbt
+%define develname %mklibname -d blackbox
+
 Summary:  	A Window Manager for the X Window System
 Name:		blackbox
 Version:	0.70.1
-Release:	%mkrel 5
+Release:	%mkrel 6
 License:	GPL
 Group:		Graphical desktop/Other
 URL:		http://blackboxwm.sourceforge.net/
-
 Source:		blackbox-%{version}.tar.bz2
 Source1:	blackbox.xdg
 Source3:	blackbox.png
 Source4:	blackbox32.png
 Source5:	blackbox-startblackbox
-
 Requires:	desktop-common-data
 BuildRequires:	X11-devel 
 BuildRequires:  locales-en
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Requires:	%libname = %name-%release
 
 %description
 This is a window manager for X.  It is similar in many respects to
@@ -31,13 +35,29 @@ small feat.
 If none of this sounds familiar to you, or you want your computer to
 look like Windows 98, you probably don't want this package.
 
+%package -n %libname
+Group:		Graphical desktop/Other
+Summary:	Library files for blackbox
+
+%description -n %libname
+This package contains library fiiles needed for blackbox.
+
+%package -n %develname
+Group:		Development/X11
+Summary:	Developemnt files provided by blackbox
+Provides:	%{name}-devel = %version-%release
+Requires:	%libname = %version-%release
+Conflicts:	%name < 0.70.1-6
+
+%description -n %develname
+This package contains developemnt files provided by blackbox.
 
 %prep
 %setup -q
 
 %build
 export LANG="en_US" LC_ALL="en_US"
-%configure2_5x --enable-kde --enable-nls
+%configure2_5x --enable-kde --enable-nls --enable-shared --disable-static
 
 %if %mdkversion >= 200700
 %make DEFAULT_MENU=%{_sysconfdir}/menu.d/%name
@@ -59,7 +79,7 @@ mkdir -p $RPM_BUILD_ROOT%{_prefix}
 install -m755 %{SOURCE1} -D $RPM_BUILD_ROOT%{_sysconfdir}/menu.d/%{name}
 
 mkdir -p $RPM_BUILD_ROOT%_sysconfdir/X11/%{name}
-touch $RPM_BUILD_ROOT%_sysconfdir/X11/%{name}/{%name}-menu
+touch $RPM_BUILD_ROOT%_sysconfdir/X11/%{name}/%{name}-menu
 
 mkdir -p $RPM_BUILD_ROOT%_menudir
 install -m644 %{SOURCE3} -D $RPM_BUILD_ROOT%{_miconsdir}/blackbox.png
@@ -121,15 +141,18 @@ rm -fr $RPM_BUILD_ROOT
 %defattr(-,root,root) 
 %{_menudir}/%{name}
 %config(noreplace) %{_sysconfdir}/menu.d/%{name}
-%config(noreplace) %{_sysconfdir}/X11/%{name}/{%name}-menu
+%config(noreplace) %{_sysconfdir}/X11/%{name}/%{name}-menu
 %config(noreplace) %{_sysconfdir}/X11/wmsession.d/05blackbox
 %{_bindir}/*
 %{_datadir}/blackbox
 %{_iconsdir}/blackbox.png
 %{_miconsdir}/blackbox.png
 %{_mandir}/man1/*
-%{_includedir}/bt
+
+%files -n %libname
+%_libdir/*.so.%{major}*
+
+%files -n %develname
+%_libdir/*.so
+%_includedir/bt
 %{_libdir}/pkgconfig/libbt.pc
-
-
-
