@@ -6,7 +6,7 @@
 Summary:  	A Window Manager for the X Window System
 Name:		blackbox
 Version:	0.70.1
-Release:	%mkrel 6
+Release:	%mkrel 7
 License:	GPL
 Group:		Graphical desktop/Other
 URL:		http://blackboxwm.sourceforge.net/
@@ -119,14 +119,14 @@ EOF
 %find_lang %{name}
 
 %post
-%{update_desktop_databases}
+%{update_desktop_database}
 %{make_session}
 
 #blackbox-alternatives
 update-alternatives --install %{_bindir}/bsetroot bsetroot %{_bindir}/bsetroot-%name 10
 
 %postun
-%{clean_desktop_databases}
+%{clean_desktop_database}
 %{make_session}
 
 # Remove bsetroot-alternatives
