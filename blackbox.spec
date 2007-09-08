@@ -6,7 +6,7 @@
 Summary:  	A Window Manager for the X Window System
 Name:		blackbox
 Version:	0.70.1
-Release:	%mkrel 7
+Release:	%mkrel 8
 License:	GPL
 Group:		Graphical desktop/Other
 URL:		http://blackboxwm.sourceforge.net/
@@ -19,7 +19,7 @@ Requires:	desktop-common-data
 BuildRequires:	X11-devel 
 BuildRequires:  locales-en
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Requires:	%libname = %name-%release
+Requires:	%libname = %version-%release
 
 %description
 This is a window manager for X.  It is similar in many respects to
