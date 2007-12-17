@@ -18,7 +18,6 @@ Source5:	blackbox-startblackbox
 Requires:	desktop-common-data
 BuildRequires:	X11-devel 
 BuildRequires:  locales-en
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	%libname = %version-%release
 
 %description
