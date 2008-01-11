@@ -81,7 +81,6 @@ install -m755 %{SOURCE1} -D $RPM_BUILD_ROOT%{_sysconfdir}/menu.d/%{name}
 mkdir -p $RPM_BUILD_ROOT%_sysconfdir/X11/%{name}
 touch $RPM_BUILD_ROOT%_sysconfdir/X11/%{name}/%{name}-menu
 
-mkdir -p $RPM_BUILD_ROOT%_menudir
 install -m644 %{SOURCE3} -D $RPM_BUILD_ROOT%{_miconsdir}/blackbox.png
 install -m644 %{SOURCE4} -D $RPM_BUILD_ROOT%{_iconsdir}/blackbox.png
 
@@ -104,17 +103,6 @@ EOF
 
 install -m 755 %{SOURCE5} $RPM_BUILD_ROOT/usr/bin/startblackbox
 
-install -m 755 -d $RPM_BUILD_ROOT%{_menudir}
-cat << EOF >> $RPM_BUILD_ROOT%{_menudir}/%{name}
-?package(%{name}): needs="x11" section="Session/Windowmanagers" title="Blackbox" icon="%{_datadir}/icons/blackbox.png" command="%{_bindir}/blackbox" xdg="true"
-?package(%{name}): needs="x11" section="Session/Windowmanagers" title="Exit" command="exit" xdg="true"
-?package(%{name}): needs="x11" section="Session/Windowmanagers" title="Reconfigure" command="reconfig" xdg="true"
-?package(%{name}): needs="x11" section="Session/Windowmanagers" title="Restart" command="restart" xdg="true"
-?package(%{name}): needs="x11" section="Setting/Styles" title="/usr/share/blackbox/styles" command="stylesdir" xdg="true"
-?package(%{name}): needs="x11" section="Setting/Styles" title="~/.blackbox/styles" command="stylesdir" xdg="true"
-?package(%{name}): needs="x11" section="Setting" title="Workspaces" command="workspaces" xdg="true"
-?package(%{name}): needs="x11" section="Setting" title="Configuration" command="config" xdg="true
-EOF
 
 %find_lang %{name}
 
@@ -139,7 +127,6 @@ rm -fr $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(-,root,root) 
-%{_menudir}/%{name}
 %config(noreplace) %{_sysconfdir}/menu.d/%{name}
 %config(noreplace) %{_sysconfdir}/X11/%{name}/%{name}-menu
 %config(noreplace) %{_sysconfdir}/X11/wmsession.d/05blackbox
