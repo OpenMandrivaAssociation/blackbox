@@ -6,7 +6,7 @@
 Summary:  	A Window Manager for the X Window System
 Name:		blackbox
 Version:	0.70.1
-Release:	%mkrel 9
+Release:	%mkrel 10
 License:	GPL
 Group:		Graphical desktop/Other
 URL:		http://blackboxwm.sourceforge.net/
@@ -15,6 +15,7 @@ Source1:	blackbox.xdg
 Source3:	blackbox.png
 Source4:	blackbox32.png
 Source5:	blackbox-startblackbox
+Patch0:		blackbox-0.70.1-gcc43.patch
 Requires:	desktop-common-data
 BuildRequires:	X11-devel 
 BuildRequires:  locales-en
@@ -54,6 +55,7 @@ This package contains developemnt files provided by blackbox.
 
 %prep
 %setup -q
+%patch0 -p1 -b .gcc43
 
 %build
 export LANG="en_US" LC_ALL="en_US"
