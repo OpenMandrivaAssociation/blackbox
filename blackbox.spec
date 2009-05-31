@@ -6,8 +6,8 @@
 Summary:  	A Window Manager for the X Window System
 Name:		blackbox
 Version:	0.70.1
-Release:	%mkrel 11
-License:	GPL
+Release:	%mkrel 12
+License:	BSD-like
 Group:		Graphical desktop/Other
 URL:		http://blackboxwm.sourceforge.net/
 Source:		blackbox-%{version}.tar.bz2
