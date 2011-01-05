@@ -6,7 +6,7 @@
 Summary:  	A Window Manager for the X Window System
 Name:		blackbox
 Version:	0.70.1
-Release:	%mkrel 13
+Release:	%mkrel 14
 License:	BSD-like
 Group:		Graphical desktop/Other
 URL:		http://blackboxwm.sourceforge.net/
@@ -16,8 +16,11 @@ Source3:	blackbox.png
 Source4:	blackbox32.png
 Source5:	blackbox-startblackbox
 Patch0:		blackbox-0.70.1-gcc43.patch
+Patch1:		blackbox-0.70.1-x11-1.4.patch
 Requires:	desktop-common-data
-BuildRequires:	X11-devel 
+BuildRequires:	libx11-devel
+BuildRequires:	libxext-devel
+BuildRequires:	libxft-devel
 BuildRequires:  locales-en
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	%libname = %version-%release
@@ -56,6 +59,7 @@ This package contains developemnt files provided by blackbox.
 %prep
 %setup -q
 %patch0 -p1 -b .gcc43
+%patch1 -p0
 
 %build
 export LANG="en_US" LC_ALL="en_US"
@@ -70,7 +74,7 @@ export LANG="en_US" LC_ALL="en_US"
 %install
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_prefix}
-%makeinstall
+%makeinstall_std
 
 #mkdir -p $RPM_BUILD_ROOT%{_prefix}/bin
 #install -m755 $RPM_BUILD_ROOT%{_bindir}/* $RPM_BUILD_ROOT%{_prefix}/bin/
