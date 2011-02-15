@@ -6,7 +6,7 @@
 Summary:  	A Window Manager for the X Window System
 Name:		blackbox
 Version:	0.70.1
-Release:	%mkrel 14
+Release:	%mkrel 15
 License:	BSD-like
 Group:		Graphical desktop/Other
 URL:		http://blackboxwm.sourceforge.net/
@@ -18,6 +18,7 @@ Source5:	blackbox-startblackbox
 Patch0:		blackbox-0.70.1-gcc43.patch
 Patch1:		blackbox-0.70.1-x11-1.4.patch
 Requires:	desktop-common-data
+Requires:	xdg-compliance-menu
 BuildRequires:	libx11-devel
 BuildRequires:	libxext-devel
 BuildRequires:	libxft-devel
