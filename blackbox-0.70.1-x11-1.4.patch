@@ -1,0 +1,11 @@
+--- lib/Util.hh.x11	2011-01-05 02:16:05.000000000 +0000
++++ lib/Util.hh	2011-01-05 02:16:23.000000000 +0000
+@@ -94,7 +94,7 @@
+ 
+   std::string tolower(const std::string &string);
+ 
+-#ifdef _XUTIL_H_
++#ifdef _X11_XUTIL_H_
+   std::string textPropertyToString(::Display *display,
+                                    ::XTextProperty& text_prop);
+ #endif
