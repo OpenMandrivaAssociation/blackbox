@@ -1,0 +1,2 @@
+/usr/bin/bsetroot -solid Navy
+exec /usr/bin/blackbox

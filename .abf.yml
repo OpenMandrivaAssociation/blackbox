@@ -1,6 +1,2 @@
 sources:
-  "blackbox-0.70.1.tar.bz2:"	66455b8400d6659b5681c290a5ced3697d199955
-  "blackbox32.png:"	d8def204535b3adc505a07ed5ff80e1a4ad65bda
-  "blackbox.png:"	c490c0d64c1e9782ab06b4e6723e249de80424cf
-  "blackbox-startblackbox:"	1db6971ce7ce854e1755165606bce11c4328c372
-  "blackbox.xdg:"	ed470912c8a61cf3019a64e4c3a22146746c9a8f
+  "blackbox-0.70.1.tar.bz2": 66455b8400d6659b5681c290a5ced3697d199955

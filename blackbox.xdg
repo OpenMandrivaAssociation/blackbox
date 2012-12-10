@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [ "$USER_MENU" = "1" ]; then
+ OUTPUTFILE=$HOME/.blackbox/menu
+ [ -d $HOME/.blackbox ] || mkdir -p  $HOME/.blackbox
+else
+ OUTPUTFILE=/etc/X11/blackbox/blackbox-menu
+fi
+
+if [ "$VERBOSE" = "1" ]; then
+ echo "writing to $OUTPUTFILE"
+/usr/bin/xdg_menu --verbose --format blackbox --fullmenu > $OUTPUTFILE
+else
+/usr/bin/xdg_menu --format blackbox --fullmenu > $OUTPUTFILE 2> /dev/null
+fi
+

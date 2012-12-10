@@ -10,7 +10,7 @@ Release:	%mkrel 15
 License:	BSD-like
 Group:		Graphical desktop/Other
 URL:		http://blackboxwm.sourceforge.net/
-Source:		blackbox-%{version}.tar.bz2
+Source0:	blackbox-%{version}.tar.bz2
 Source1:	blackbox.xdg
 Source3:	blackbox.png
 Source4:	blackbox32.png
@@ -19,11 +19,10 @@ Patch0:		blackbox-0.70.1-gcc43.patch
 Patch1:		blackbox-0.70.1-x11-1.4.patch
 Requires:	desktop-common-data
 Requires:	xdg-compliance-menu
-BuildRequires:	libx11-devel
-BuildRequires:	libxext-devel
-BuildRequires:	libxft-devel
+BuildRequires:	pkgconfig(x11)
+BuildRequires:	pkgconfig(xext)
+BuildRequires:	pkgconfig(xft)
 BuildRequires:  locales-en
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Requires:	%libname = %version-%release
 
 %description
@@ -66,40 +65,35 @@ This package contains developemnt files provided by blackbox.
 export LANG="en_US" LC_ALL="en_US"
 %configure2_5x --enable-kde --enable-nls --enable-shared --disable-static
 
-%if %mdkversion >= 200700
 %make DEFAULT_MENU=%{_sysconfdir}/menu.d/%name
-%else
-%make DEFAULT_MENU=%{_sysconfdir}/X11/blackbox/blackbox-menu
-%endif
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT%{_prefix}
+mkdir -p %{buildroot}%{_prefix}
 %makeinstall_std
 
-#mkdir -p $RPM_BUILD_ROOT%{_prefix}/bin
-#install -m755 $RPM_BUILD_ROOT%{_bindir}/* $RPM_BUILD_ROOT%{_prefix}/bin/
+#mkdir -p %{buildroot}%{_prefix}/bin
+#install -m755 %{buildroot}%{_bindir}/* %{buildroot}%{_prefix}/bin/
 # and removing the files from _bindir if they are not packaged; otherwise
 # the rpm checking makes the building of the package fail -- pablo
-#rm -f $RPM_BUILD_ROOT%{_bindir}/*
+#rm -f %{buildroot}%{_bindir}/*
 
-install -m755 %{SOURCE1} -D $RPM_BUILD_ROOT%{_sysconfdir}/menu.d/%{name}
+install -m755 %{SOURCE1} -D %{buildroot}%{_sysconfdir}/menu.d/%{name}
 
-mkdir -p $RPM_BUILD_ROOT%_sysconfdir/X11/%{name}
-touch $RPM_BUILD_ROOT%_sysconfdir/X11/%{name}/%{name}-menu
+mkdir -p %{buildroot}%_sysconfdir/X11/%{name}
+touch %{buildroot}%_sysconfdir/X11/%{name}/%{name}-menu
 
-install -m644 %{SOURCE3} -D $RPM_BUILD_ROOT%{_miconsdir}/blackbox.png
-install -m644 %{SOURCE4} -D $RPM_BUILD_ROOT%{_iconsdir}/blackbox.png
+install -m644 %{SOURCE3} -D %{buildroot}%{_miconsdir}/blackbox.png
+install -m644 %{SOURCE4} -D %{buildroot}%{_iconsdir}/blackbox.png
 
 # bsetroot is an alternative for the one in fluxbox
-mv $RPM_BUILD_ROOT%{_bindir}/bsetroot $RPM_BUILD_ROOT%{_bindir}/bsetroot-blackbox
+mv %{buildroot}%{_bindir}/bsetroot %{buildroot}%{_bindir}/bsetroot-blackbox
 
 
-rm -f $RPM_BUILD_ROOT/%{_libdir}/*.a \
-        $RPM_BUILD_ROOT/%{_libdir}/*.la
+rm -f %{buildroot}/%{_libdir}/*.a \
+        %{buildroot}/%{_libdir}/*.la
 
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/X11/wmsession.d
-cat > $RPM_BUILD_ROOT/%{_sysconfdir}/X11/wmsession.d/05blackbox << EOF
+mkdir -p %{buildroot}%{_sysconfdir}/X11/wmsession.d
+cat > %{buildroot}/%{_sysconfdir}/X11/wmsession.d/05blackbox << EOF
 NAME=BlackBox
 ICON=blackbox.png
 EXEC=%{_bindir}/blackbox
@@ -108,10 +102,7 @@ SCRIPT:
 exec %{_bindir}/startblackbox
 EOF
 
-install -m 755 %{SOURCE5} $RPM_BUILD_ROOT/usr/bin/startblackbox
-
-
-%find_lang %{name}
+install -m 755 %{SOURCE5} %{buildroot}/usr/bin/startblackbox
 
 %post
 %{update_desktop_database}
@@ -129,11 +120,7 @@ if [ "$1" = 0 ]; then
 update-alternatives --remove bsetroot %{_bindir}/bsetroot-%name
 fi
 
-%clean
-rm -fr $RPM_BUILD_ROOT
-
-%files -f %{name}.lang
-%defattr(-,root,root) 
+%files
 %config(noreplace) %{_sysconfdir}/menu.d/%{name}
 %config(noreplace) %{_sysconfdir}/X11/%{name}/%{name}-menu
 %config(noreplace) %{_sysconfdir}/X11/wmsession.d/05blackbox
