@@ -113,7 +113,6 @@ update-alternatives --install %{_bindir}/bsetroot bsetroot %{_bindir}/bsetroot-%
 
 %postun
 %{clean_desktop_database}
-%{make_session}
 
 # Remove bsetroot-alternatives
 if [ "$1" = 0 ]; then
