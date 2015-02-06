@@ -6,7 +6,7 @@
 Summary:  	A Window Manager for the X Window System
 Name:		blackbox
 Version:	0.70.1
-Release:	16
+Release:	17
 License:	BSD-like
 Group:		Graphical desktop/Other
 URL:		http://blackboxwm.sourceforge.net/
