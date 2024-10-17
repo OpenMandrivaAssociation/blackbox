@@ -9,7 +9,7 @@ Version:	0.70.1
 Release:	17
 License:	BSD-like
 Group:		Graphical desktop/Other
-URL:		http://blackboxwm.sourceforge.net/
+URL:		https://blackboxwm.sourceforge.net/
 Source0:	blackbox-%{version}.tar.bz2
 Source1:	blackbox.xdg
 Source3:	blackbox.png
