@@ -19,6 +19,11 @@ Patch0:		blackbox-0.70.1-gcc43.patch
 Patch1:		blackbox-0.70.1-x11-1.4.patch
 Requires:	desktop-common-data
 Requires:	xdg-compliance-menu
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	pkgconfig(xext)
 BuildRequires:	pkgconfig(xft)
